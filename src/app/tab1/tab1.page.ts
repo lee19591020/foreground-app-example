@@ -1,6 +1,8 @@
 import { Component, NgZone, OnInit } from '@angular/core';
-import { CapacitorForegroundLocationService, ForegroundLocation } from 'capacitor-foreground-location-service'
-
+import {
+  CapacitorForegroundLocationService,
+  ForegroundLocation,
+} from 'capacitor-foreground-location-service';
 
 @Component({
   selector: 'app-tab1',
@@ -9,33 +11,31 @@ import { CapacitorForegroundLocationService, ForegroundLocation } from 'capacito
   standalone: false,
 })
 export class Tab1Page implements OnInit {
-
   lat = 0;
   lng = 0;
-  message = "updating location..";
-  constructor(
-    private ngZone: NgZone
-  ) {
-    
-  }
+  message = 'updating location..';
+  constructor(private ngZone: NgZone) {}
   ngOnInit(): void {
     this.init();
   }
 
-  async init(){
-    CapacitorForegroundLocationService.startService()
-      .then(() => console.log('Service started'))
+  async init() {
+    //request permission here using capacitor
+
+    CapacitorForegroundLocationService.requestPermission()
+      .then((result) => console.log(`result is: ${result}`))
       .catch((err: any) => console.error('Failed to start service:', err));
 
-    CapacitorForegroundLocationService.addListener('locationUpdate', (location: ForegroundLocation) => {
-      console.log('[JS] Lat:', location.lat, 'Lng:', location.lng);
-      this.ngZone.run(() => {
-        this.lat = location.lat;
-        this.lng = location.lng;
-        this.message = `Location updated: ${new Date()}`;
-      });
-    });
-
+    CapacitorForegroundLocationService.addListener(
+      'locationUpdate',
+      (location: ForegroundLocation) => {
+        console.log('[JS] Lat:', location.lat, 'Lng:', location.lng);
+        this.ngZone.run(() => {
+          this.lat = location.lat;
+          this.lng = location.lng;
+          this.message = `Location updated: ${new Date().getTime()}`;
+        });
+      }
+    );
   }
-
 }
