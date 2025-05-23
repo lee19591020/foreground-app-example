@@ -2,6 +2,7 @@ import { Component, NgZone, OnInit } from '@angular/core';
 import {
   CapacitorForegroundLocationService,
   ForegroundLocation,
+  PermissionResponse
 } from 'capacitor-foreground-location-service';
 
 @Component({
@@ -21,12 +22,18 @@ export class Tab1Page implements OnInit {
 
   async init() {
     //request permission here using capacitor
-
-    CapacitorForegroundLocationService.requestPermission()
-      .then((result) => console.log(`result is: ${result}`))
-      .catch((err: any) => console.error('Failed to start service:', err));
-
-    CapacitorForegroundLocationService.addListener(
+    console.log("NABUANG NAH!");
+    const response = await CapacitorForegroundLocationService.requestPermission()
+      .catch((err: any) => {
+        console.log(`Error man ue: ` + err);
+        return {
+          granted: false
+        } as PermissionResponse;
+      });
+      console.log(response);
+    if(response.granted){
+      CapacitorForegroundLocationService.startService();
+      CapacitorForegroundLocationService.addListener(
       'locationUpdate',
       (location: ForegroundLocation) => {
         console.log('[JS] Lat:', location.lat, 'Lng:', location.lng);
@@ -37,5 +44,7 @@ export class Tab1Page implements OnInit {
         });
       }
     );
+    }
+
   }
 }
