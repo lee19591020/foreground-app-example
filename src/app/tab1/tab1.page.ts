@@ -5,6 +5,7 @@ import {
   ForegroundLocation,
   ForegroundLocationConfiguration,
   PermissionResponse,
+  NotificationImportance,
 } from 'capacitor-foreground-location-service';
 
 @Component({
@@ -28,8 +29,13 @@ export class Tab1Page implements OnInit {
     }
   }
 
-  async ionViewDidEnter() {
-    console.log('enter now');
+  async stopLocationUpdate() {
+    if (this.flatform.is('android')) {
+      CapacitorForegroundLocationService.stopService();
+    }
+    if (this.flatform.is('ios')) {
+      CapacitorForegroundLocationService.stopUpdatingLocation();
+    }
   }
 
   async init() {
@@ -39,6 +45,8 @@ export class Tab1Page implements OnInit {
       interval: 5000,
       notificationMessage: 'Something is tracking your location',
       notificationTitle: 'I am a tracker',
+      notificationImportance: NotificationImportance.DEFAULT,
+      notificationChannelId: 627,
     };
     await CapacitorForegroundLocationService.config(config);
     const response =
@@ -67,7 +75,12 @@ export class Tab1Page implements OnInit {
     }
   }
   async initIOS() {
-    await CapacitorForegroundLocationService.initialize();
+    await CapacitorForegroundLocationService.initialize({
+      accuracy: 'high', // or "low"
+      distanceFilter: 10, // meters
+      updateInterval: 30, // seconds (throttle update frequency)
+      batteryMode: 'lowPower', // "default", "fitness", "navigation", "lowPower"
+    });
     const response =
       await CapacitorForegroundLocationService.requestPermission().catch(
         (err: any) => {
@@ -77,7 +90,7 @@ export class Tab1Page implements OnInit {
           } as PermissionResponse;
         }
       );
-    console.log(response);
+
     if (response.granted) {
       CapacitorForegroundLocationService.startUpdatingLocation();
       CapacitorForegroundLocationService.addListener(
