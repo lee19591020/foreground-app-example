@@ -30,6 +30,7 @@ export class Tab1Page implements OnInit {
   }
 
   async stopLocationUpdate() {
+    console.log('dasdsad');
     if (this.flatform.is('android')) {
       CapacitorForegroundLocationService.stopService();
     }

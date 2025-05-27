@@ -13,11 +13,9 @@
 
   <app-explore-container name="Summoning Ero"> </app-explore-container>
 
-  <ion-content
-    style="display: flex; flex-direction: column; justify-content: center"
-  >
+  <ion-content class="message-wrapper">
     <ion-label> message: {{ message }} </ion-label>
     <ion-label> Lat: {{ lat }} Lng: {{ lng }} </ion-label>
-    <button (click)="stopLocationUpdate()"></button>
+    <button (click)="stopLocationUpdate()" style="padding: 5px; border-radius: 5px; background-color: burlywood;"> Stop Location Service</button>
   </ion-content>
 </ion-content>

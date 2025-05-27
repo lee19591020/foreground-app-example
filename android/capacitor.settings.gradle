@@ -15,4 +15,4 @@ include ':capacitor-status-bar'
 project(':capacitor-status-bar').projectDir = new File('../node_modules/@capacitor/status-bar/android')
 
 include ':capacitor-foreground-location-service'
-project(':capacitor-foreground-location-service').projectDir = new File('../../capacitor-foreground-location-service/android')
+project(':capacitor-foreground-location-service').projectDir = new File('../node_modules/capacitor-foreground-location-service/android')

@@ -11,7 +11,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "clean:gradlew": "cd android && ./gradlew clean && cd ..",
-    "android": "ionic cap run android -l --external --port=8100",
+    "android": "ionic cap run android -l --external --target emulator-5554",
     "ios": "ionic cap run ios -l --external --target B7441EF2-7397-4BCB-8BCC-12DD5ABFF7A0"
   },
   "private": true,
