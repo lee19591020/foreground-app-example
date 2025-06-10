@@ -6,6 +6,12 @@ import {
   ForegroundLocationConfiguration,
   PermissionResponse,
   NotificationImportance,
+  SetApiOptions,
+  Endpoint,
+  GeofenceData,
+  Geofence,
+  UserData,
+  LogsEndpoint,
 } from 'capacitor-foreground-location-service';
 
 @Component({
@@ -30,7 +36,6 @@ export class Tab1Page implements OnInit {
   }
 
   async stopLocationUpdate() {
-    console.log('dasdsad');
     if (this.flatform.is('android')) {
       CapacitorForegroundLocationService.stopService();
     }
@@ -40,7 +45,55 @@ export class Tab1Page implements OnInit {
   }
 
   async init() {
-    //request permission here using capacitor
+
+    const endPoint: Endpoint = {
+      endPoint: 'https://leading-terribly-tortoise.ngrok-free.app/api/recorded'
+    }
+
+
+    const geofence: Geofence[] = [
+      {
+        clockDescription: 'Geofence 1',
+        clockNumber: 1,
+        lat: 10.062958175504694,
+        lng: 124.98625442924767,
+        locationCode: 'Clock 1',
+        locationDescription: 'VIC',
+        radius: 300
+      },
+      {
+        clockDescription: 'Geofence 2',
+        clockNumber: 2,
+        lat: 10.097838860165792, 
+        lng: 124.94873423458931,
+        locationCode: 'Clock 2',
+        locationDescription: 'MEL',
+        radius: 300
+      }
+    ]
+
+    const geofenceData: GeofenceData = {
+      geofenceData: geofence
+    }
+
+    const usr: UserData = {
+      _token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODM5MzUwMzM0ZGQzYTY3YzFlYzM1MmEiLCJ1c2VybmFtZSI6ImplbnNsZWUiLCJpYXQiOjE3NDg3NjM1MDcsImV4cCI6MTc0ODc4MTUwN30.XEChD0emM2tX3CnRXi4M1llCJjD3cWcm6kD9bDiwZPU',
+      userId: 50547,
+      username: '50547'
+    }
+
+    const logsEndpoint: LogsEndpoint = {
+      logsEndpoint: 'https://leading-terribly-tortoise.ngrok-free.app/api/add-logs'
+    }
+
+    const apiOptions: SetApiOptions = {
+      endpoint: endPoint,
+      geofenceData: geofenceData,
+      userData: usr,
+      logsEndpoint: logsEndpoint
+    }
+
+    const resultValue = await CapacitorForegroundLocationService.setApiOptions(apiOptions);
     const config: ForegroundLocationConfiguration = {
       distanceFilter: 20,
       interval: 5000,
@@ -59,7 +112,6 @@ export class Tab1Page implements OnInit {
           } as PermissionResponse;
         }
       );
-    console.log(response);
     if (response.granted) {
       CapacitorForegroundLocationService.startService();
       CapacitorForegroundLocationService.addListener(
