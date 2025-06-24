@@ -11,11 +11,17 @@
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Summoning Ero"> </app-explore-container>
+  <app-explore-container name="Summoning Ero"></app-explore-container>
 
   <ion-content class="message-wrapper">
     <ion-label> message: {{ message }} </ion-label>
     <ion-label> Lat: {{ lat }} Lng: {{ lng }} </ion-label>
     <button (click)="stopLocationUpdate()" style="padding: 5px; border-radius: 5px; background-color: burlywood;"> Stop Location Service</button>
+    <button (click)="startLocationUpdate()" style="padding: 5px; border-radius: 5px; background-color: burlywood;"> Start Location Service</button>
+    <ion-label *ngIf="isBatterOptimizerExcepted">
+      You need to add the MyWorkplace app to batery exception optimizer for the app to work normally.
+      <button (click)="requestBatteryOptimizationDisabled()" style="padding: 5px; border-radius: 5px; background-color: burlywood;"> Tap Here to Request Disable Battery Optimization</button>
+    </ion-label>
+    <button (click)="checkOptimizer()" style="padding: 5px; border-radius: 5px; background-color: burlywood;"> Check Optimizer</button>
   </ion-content>
 </ion-content>

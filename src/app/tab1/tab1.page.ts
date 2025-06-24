@@ -1,4 +1,6 @@
 import { Component, NgZone, OnInit } from '@angular/core';
+import { Capacitor } from '@capacitor/core';
+import { BatteryOptimization } from '@capawesome-team/capacitor-android-battery-optimization';
 import { Platform } from '@ionic/angular';
 import {
   CapacitorForegroundLocationService,
@@ -24,6 +26,7 @@ export class Tab1Page implements OnInit {
   lat = 0;
   lng = 0;
   message = 'updating location..';
+  isBatterOptimizerExcepted = true;
   constructor(private ngZone: NgZone, private flatform: Platform) {}
   ngOnInit(): void {
     console.log(this.flatform.is('android'));
@@ -41,6 +44,12 @@ export class Tab1Page implements OnInit {
     }
     if (this.flatform.is('ios')) {
       CapacitorForegroundLocationService.stopUpdatingLocation();
+    }
+  }
+
+  async startLocationUpdate(){
+    if (this.flatform.is('android')) {
+      CapacitorForegroundLocationService.startService();
     }
   }
 
@@ -126,6 +135,9 @@ export class Tab1Page implements OnInit {
         }
       );
     }
+
+    this.isBatterOptimizerExcepted = await isBatteryOptimizationEnabled();
+    console.log(this.isBatterOptimizerExcepted);
   }
   async initIOS() {
     await CapacitorForegroundLocationService.initialize({
@@ -159,4 +171,33 @@ export class Tab1Page implements OnInit {
       );
     }
   }
+  async requestBatteryOptimizationDisabled(){
+    await requestIgnoreBatteryOptimization();
+  }
+  async checkOptimizer(){
+    await openBatteryOptimizationSettings();
+  }
+  
 }
+
+const isBatteryOptimizationEnabled = async () => {
+  if (Capacitor.getPlatform() !== 'android') {
+    return false;
+  }
+  const { enabled } = await BatteryOptimization.isBatteryOptimizationEnabled();
+  return enabled;
+};
+
+const openBatteryOptimizationSettings = async () => {
+  if (Capacitor.getPlatform() !== 'android') {
+    return;
+  }
+  await BatteryOptimization.openBatteryOptimizationSettings();
+};
+
+const requestIgnoreBatteryOptimization = async () => {
+  if (Capacitor.getPlatform() !== 'android') {
+    return;
+  }
+  await BatteryOptimization.requestIgnoreBatteryOptimization();
+};

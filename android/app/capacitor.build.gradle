@@ -13,6 +13,7 @@ dependencies {
     implementation project(':capacitor-haptics')
     implementation project(':capacitor-keyboard')
     implementation project(':capacitor-status-bar')
+    implementation project(':capawesome-team-capacitor-android-battery-optimization')
     implementation project(':capacitor-foreground-location-service')
 
 }

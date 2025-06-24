@@ -1271,6 +1271,11 @@
   resolved "https://registry.yarnpkg.com/@capacitor/status-bar/-/status-bar-7.0.1.tgz#6bd3769ef35158c961ff2a6b571c03e9bce55809"
   integrity sha512-iDv3mXYo9CdxYRVwt3/pRyuk25p7Sn4GfaS/zMZyVIqTzsvKLCIIH3GdKK+ta+nsNcAVpCw/t5jFEBt1D18ctA==
 
+"@capawesome-team/capacitor-android-battery-optimization@^7.0.0":
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/@capawesome-team/capacitor-android-battery-optimization/-/capacitor-android-battery-optimization-7.0.0.tgz#8c068c814b347a32e4be107ee06230fcc26268c6"
+  integrity sha512-an60fr+GxoT4+azWn9NGQOTmVuOB1J1NpzSAJ6CZ5kdJjG65T/gZyKIPIzLAHikMcXD4F+5ZLZ8MCCaWhWe4Dg==
+
 "@colors/colors@1.5.0":
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/@colors/colors/-/colors-1.5.0.tgz#bb504579c1cae923e6576a4f5da43d25f97bdbd9"
@@ -3773,7 +3778,7 @@ caniuse-lite@^1.0.30001646, caniuse-lite@^1.0.30001718:
   integrity sha512-cOuvmUVtKrtEaoKiO0rSc29jcjwMwX5tOHDy4MgVFEWiUXj4uBMJkwI8MDySkgXidpMiHUcviogAvFi4pA2hDQ==
 
 "capacitor-foreground-location-service@file:../capacitor-foreground-location-service":
-  version "0.0.8"
+  version "0.1.1"
 
 chalk@^4.0.0, chalk@^4.1.0:
   version "4.1.2"
