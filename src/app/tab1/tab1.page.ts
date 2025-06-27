@@ -28,10 +28,16 @@ export class Tab1Page implements OnInit {
   message = 'updating location..';
   isBatterOptimizerExcepted = true;
   constructor(private ngZone: NgZone, private flatform: Platform) {}
-  ngOnInit(): void {
+  async ngOnInit() {
     console.log(this.flatform.is('android'));
     if (this.flatform.is('android')) {
-      this.init();
+      const result = await CapacitorForegroundLocationService.isLocationServiceRunning();
+      if(!result.running){
+        this.init();
+      } else {
+        console.log('location is running')
+      }
+      
     }
     if (this.flatform.is('ios')) {
       this.initIOS();
