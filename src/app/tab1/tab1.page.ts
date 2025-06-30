@@ -14,6 +14,7 @@ import {
   Geofence,
   UserData,
   LogsEndpoint,
+  NotificationEnabled,
 } from 'capacitor-foreground-location-service';
 
 @Component({
@@ -101,11 +102,16 @@ export class Tab1Page implements OnInit {
       logsEndpoint: 'https://leading-terribly-tortoise.ngrok-free.app/api/add-logs'
     }
 
+    const notificationEnabled: NotificationEnabled = {
+      allowNotification: true
+    }
+
     const apiOptions: SetApiOptions = {
       endpoint: endPoint,
       geofenceData: geofenceData,
       userData: usr,
-      logsEndpoint: logsEndpoint
+      logsEndpoint: logsEndpoint,
+      allowNotification: notificationEnabled
     }
 
     const resultValue = await CapacitorForegroundLocationService.setApiOptions(apiOptions);
